@@ -1,0 +1,304 @@
+/* Responsive Full Background Image Using CSS
+ * Tutorial URL: http://sixrevisions.com/css/responsive-background-image/
+*/
+body {
+}
+
+/* For mobile devices */
+@media only screen and (max-width: 767px) {
+  body {
+    /* The file size of this background image is 93% smaller
+     * to improve page load speed on mobile internet connections */
+    background-image: url(img/iris.jpg);
+  }
+}
+
+header {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+
+header img {
+  width: 100%;
+  max-width: 500px;
+}
+
+header p {
+  font-size: 3rem;
+  font-family: "Amatic SC", cursive;
+}
+
+footer {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+
+/*Grid*/
+/*
+  Oh Hello!
+
+  These are some base styles so that our tutorial looks good.
+
+  Let's go through the important bits real quick
+*/
+:root {
+  --yellow: #ffc600;
+  --black: #272727;
+}
+
+html {
+  /* border-box box model allows us to add padding and border to our elements without increasing their size */
+  box-sizing: border-box;
+  /* A system font stack so things load nice and quick! */
+  font-family: "Quicksand", sans-serif;
+  font-size: 1em;
+  color: var(--black);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.07);
+}
+
+/*
+  WAT IS THIS?!
+  We inherit box-sizing: border-box; from our <html> selector
+  Apparently this is a bit better than applying box-sizing: border-box; directly to the * selector
+*/
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  /*background-image: url("./images/topography.svg"),
+    linear-gradient(110deg, green, blue);*/
+  background-size: 340px, auto;
+  min-height: calc(100vh - 100px);
+  margin: 50px;
+  /* background: white; */
+  background-attachment: fixed;
+  letter-spacing: -1px;
+  /* Location of the image */
+  background-image: url(img/iris.jpg);
+  /* Image is centered vertically and horizontally at all times */
+  background-position: center center;
+  /* Image doesn't repeat */
+  background-repeat: no-repeat;
+  /* Makes the image fixed in the viewport so that it doesn't move when
+     the content height is greater than the image height */
+  background-attachment: fixed;
+  /* This is what makes the background image rescale based on its container's size */
+  background-size: cover;
+  /* Pick a solid background color that will be displayed while the background image is loading */
+  background-color: #464646;
+  /* SHORTHAND CSS NOTATION
+   * background: url(background-photo.jpg) center center cover no-repeat fixed;
+   */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 5px 0;
+}
+
+/* Each item in our grid will contain numbers */
+.album {
+  /* We center the contents of these items. You can also do this with flexbox too! */
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid rgba(0, 0, 0, 0.03);
+  border-radius: 3px;
+  font-size: 1em;
+  /* best colour */
+}
+
+.album {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  grid-template-columns: 1fr;
+  grid-template-rows: 200px 200px;
+  grid-gap: 20px;
+  color: white;
+  font-weight: 100;
+  overflow: hidden;
+}
+
+.album p {
+  margin: 0 0 5px 0;
+}
+
+/* Style start */
+body {
+  color: white;
+}
+
+.albums {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 10px;
+  justify-content: center;
+}
+
+.album__artwork {
+  width: 100%;
+}
+
+@media screen and (max-width: 500px) {
+  header p {
+    font-size: 1.6rem;
+  }
+
+  header {
+    margin-right: -10px;
+    margin-left: -10px;
+  }
+}
+
+/*overlay START*/
+.close {
+  background: none;
+  color: white;
+  border: 0;
+}
+
+.gallery {
+}
+
+.album canvas {
+  grid-column: 1/-1;
+  grid-row: 1/-1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item__overlay {
+  grid-column: 1/-1;
+  grid-row: 1/-1;
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  transition: 0.2s;
+  transform: translateY(40%);
+  min-height: 100%;
+}
+
+.album:hover .item__overlay {
+  transform: translateY(0);
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(100, 100, 100, 0.5);
+  min-height: 100%;
+}
+
+.album__details {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto auto;
+  background: hsla(175, 2%, 13%, 0.2);
+  border-radius: 5px;
+  padding: 3px 6px;
+}
+
+.album__details h2 {
+  font-size: 1.6rem;
+  justify-self: start;
+  align-self: center;
+
+  /* display: inline-block; */
+}
+
+.album__artist {
+  font-size: 1rem;
+  justify-self: center;
+  align-self: center;
+  /* display: inline-block; */
+  /* padding-left: 5px; */
+}
+
+.album__desc {
+  grid-column-start: span 2;
+}
+
+.item__overlay button {
+  background: none;
+  border: 0px solid rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 5px;
+}
+
+.overlay {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.7);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  z-index: 2;
+}
+
+.overlay.open {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.overlay .overlay-inner {
+  background: black;
+  width: 700px;
+  padding: 20px;
+}
+
+.overlay img {
+  width: 100%;
+}
+
+/*pverlay END*/
+
+/*LINKS start*/
+a {
+  outline: none;
+  text-decoration: none;
+  padding: 2px 1px 0;
+}
+
+a:link {
+  color: hsl(175, 32%, 63%);
+  text-decoration: none;
+}
+
+a:visited {
+  color: hsl(175, 32%, 63%);
+  text-decoration: none;
+}
+
+a:focus {
+  text-decoration: underline;
+}
+
+a:hover {
+  color: hsl(175, 62%, 63%);
+  text-decoration: underline;
+}
+
+a:active {
+  color: hsl(175, 92%, 63%);
+  background-color: hsla(175, 12%, 63%, 0.5);
+  text-decoration: underline;
+}
+/*LINKS stendart*/

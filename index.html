@@ -1,35 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
-    <link href="styles.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript"
-        src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js"></script>
-
+  <meta charset="utf-8" />
+  <title>Paul Belfrage's Shader Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="http://fonts.googleapis.com/css?family=Amatic+SC:400,700|Quicksand" rel="stylesheet">
+  <link rel="stylesheet" href="normalize.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="text/javascript"
+    src="https://rawgit.com/patriciogonzalezvivo/glslCanvas/master/dist/GlslCanvas.js"></script>
 </head>
 
 <body>
-    <header>Welcome!</header>
 
-    <section class="first-section">
-        <canvas class="glslCanvas" data-fragment-url="blue-yellow-transition.frag" width="200" height="200"></canvas>
-        <article class="1-a">Eos delectus, labore fuga totam ducimus architecto.</article>
-        <canvas class="glslCanvas" data-fragment-url="sunset.frag" width="200" height="200"></canvas>
-        <article class="1-b">Sunset</article>
-    </section>
-    <!--<section class="second-section">
-        <img class="2-a" src="https://placeimg.com/300/202/nature" alt="">
-        <article class="2-a"> Lorem ipsum dolor sit amet voluptatem, voluptates ipsa voluptatum.</article>
-        <img class="2-a" src="https://placeimg.com/300/207/nature" alt="">
-        <article class="2-a"> A nobis voluptatem, voluptates ipsa vitae, voluptatum.</article>
-    </section>-->
+  <div class="overlay">
+    <div class="overlay-inner">
+      <button class="close">× Close</button>
+      <img>
+    </div>
+  </div>
 
-    <footer>Paul Belfrage</footer>
+  <header>
+    <p>
+      Paul Belfrage's Shader Gallery
+    </p>
+  </header>
+
+  <div class="albums">
+    <div class="album">
+      <canvas class="glslCanvas" data-fragment-url="sunset.frag" width="200" height="200"></canvas>
+
+      <div class="album__details">
+        <h2>"Sunset"</h2>
+        <p class="album__artist">Paul Belfrage</p>
+        <p class="album__desc">Inspired by <a href="https://thebookofshaders.com/06/" target="_blank">The Book of
+            Shaders - Colors</a></p>
+
+      </div>
+    </div>
+    <div class="album">
+      <canvas class="glslCanvas" data-fragment-url="blue-yellow-transition.frag" width="200" height="200"></canvas>
+
+
+      <div class="album__details">
+        <h2>"Blue to Yellow"</h2>
+        <p class="album__artist">Paul Belfrage</p>
+        <p class="album__desc">Inspired by <a href="https://thebookofshaders.com/05/" target="_blank">The Book of
+            Shaders - Functions</a></p>
+      </div>
+    </div>
+
+
+
+  </div>
+  <footer>
+    <p>
+      &copy; Paul Belfrage 2022
+    </p>
+  </footer>
+  <script>
+    const gallery = document.querySelector('.gallery');
+    const overlay = document.querySelector('.overlay');
+    const overlayImage = overlay.querySelector('img');
+    const overlayClose = overlay.querySelector('.close');
+    /* display picture */
+    function handleClick(e) {
+      const src = e.currentTarget.querySelector('img').src;
+      overlayImage.src = src;
+      overlay.classList.add('open');
+    }
+
+    function close() {
+      overlay.classList.remove('open');
+    }
+
+    const items = document.querySelectorAll('.album');
+
+    items.forEach(item => item.addEventListener('click', handleClick));
+
+    overlayClose.addEventListener('click', close);
+  </script>
 </body>
 
 </html>
