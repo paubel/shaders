@@ -1,2 +1,2 @@
-# shaders
+# Shaders
 A selection of shaders 
