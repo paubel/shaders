@@ -204,14 +204,15 @@ body {
 
 .album__details {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: auto auto;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: auto auto auto;
   background: hsla(175, 2%, 13%, 0.2);
   border-radius: 5px;
   padding: 3px 6px;
 }
 
 .album__details h2 {
+  grid-column-start: span 2;
   font-size: 2.2rem;
   justify-self: start;
   align-self: center;
@@ -221,10 +222,16 @@ body {
 
 .album__artist {
   font-size: 1.4rem;
-  justify-self: center;
+  justify-self: start;
   align-self: center;
   /* display: inline-block; */
   /* padding-left: 5px; */
+}
+
+.album_date {
+  font-size: 1.4rem;
+  justify-self: center;
+  align-self: center;
 }
 
 .album__desc {
