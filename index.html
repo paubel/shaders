@@ -70,6 +70,7 @@
         .shader-preview {
             width: 100%;
             height: 100%;
+            display: block;
         }
 
         .shader-name {
@@ -142,6 +143,7 @@
         .modal-shader {
             width: 100%;
             height: 100%;
+            display: block;
         }
 
         .modal-header {
@@ -306,11 +308,33 @@
             { name: 'Beating Heart', file: 'beating-heart.frag', desc: 'Beating Heart' },
             { name: 'Terrain Genesis', file: 'raymarching-test.frag', desc: 'Terrain Genesis' },
             { name: 'Golden Hour', file: 'sunset.frag', desc: 'Golden Hour' },
-            { name: 'Cursor Canvas', file: 'uniform_mouse_color.frag', desc: 'Cursor Canvas' }
+            { name: 'Cursor Canvas', file: 'uniform_mouse_color.frag', desc: 'Cursor Canvas' },
+            { name: 'Raymarching Fractal', file: 'raymarching-fractal.frag', desc: 'Raymarching Fractal' }
+
+
+
+
         ]
 
         let currentIndex = 0
         let glslCanvases = []
+        let modalGlsl = null
+
+        function resizeCanvasToDisplaySize(canvas) {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2)
+            const rect = canvas.getBoundingClientRect()
+            const width = Math.max(1, Math.round(rect.width * dpr))
+            const height = Math.max(1, Math.round(rect.height * dpr))
+
+            if (canvas.width !== width || canvas.height !== height) {
+                canvas.width = width
+                canvas.height = height
+            }
+        }
+
+        function refreshAllCanvasSizes() {
+            document.querySelectorAll('canvas').forEach(resizeCanvasToDisplaySize)
+        }
 
         // Initialize gallery
         function initGallery() {
@@ -337,6 +361,7 @@
                 fetch(shader.file)
                     .then(r => r.text())
                     .then(code => {
+                        resizeCanvasToDisplaySize(canvas)
                         const glsl = new GlslCanvas(canvas)
                         glsl.load(code)
                         glslCanvases[index] = glsl
@@ -355,20 +380,29 @@
             document.getElementById('modalFilename').textContent = shader.file
             document.getElementById('modalDescription').textContent = shader.desc
 
-            // Load shader in modal canvas
-            const canvas = document.getElementById('modalShader')
-            fetch(shader.file)
-                .then(r => r.text())
-                .then(code => {
-                    const glsl = new GlslCanvas(canvas)
-                    glsl.load(code)
-                })
-                .catch(e => console.error(`Failed to load ${shader.file}:`, e))
-
+            // Show modal first so canvas gets correct size
             modal.classList.add('active')
 
             // Update button status
             updateNavButtons()
+
+            // Load shader in modal canvas
+            const canvas = document.getElementById('modalShader')
+            requestAnimationFrame(() => {
+                resizeCanvasToDisplaySize(canvas)
+
+                if (!modalGlsl) {
+                    modalGlsl = new GlslCanvas(canvas)
+                }
+
+                fetch(shader.file)
+                    .then(r => r.text())
+                    .then(code => {
+                        resizeCanvasToDisplaySize(canvas)
+                        modalGlsl.load(code)
+                    })
+                    .catch(e => console.error(`Failed to load ${shader.file}:`, e))
+            })
         }
 
         // Close modal
@@ -406,6 +440,10 @@
         // Close modal when clicking outside
         document.getElementById('modal').addEventListener('click', (e) => {
             if (e.target.id === 'modal') closeModal()
+        })
+
+        window.addEventListener('resize', () => {
+            refreshAllCanvasSizes()
         })
 
         // Initialize on page load
